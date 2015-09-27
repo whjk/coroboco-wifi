@@ -1,0 +1,3 @@
+[submodule "client/coroboco-web"]
+	path = client/coroboco-web
+	url = git@github.com:whjk/coroboco-web.git
