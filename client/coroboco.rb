@@ -8,7 +8,7 @@ class CoRoboCo
 
 	def master?
 		@socket.puts("#{ip} master?")
-		@socket.gets == "yes" 
+		(@socket.gets == "yes").to_s
 	end
 
 	def do_action(action)

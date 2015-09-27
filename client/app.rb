@@ -1,4 +1,5 @@
 require 'sinatra'
+require_relative 'coroboco'
 
 set :public_folder, 'coroboco-web'
 
