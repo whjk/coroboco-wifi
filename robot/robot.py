@@ -1,38 +1,60 @@
-/* Socket Server Python */
+# /* Socket Server Python */
 
 import sys
 import socket
+import os
 from thread import *
 
-s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-try:
-    s.bind((127.0.0.1, 1337))
-except socket.error as msg:
-    print 'Bind failed. Error Code : ' + str(msg[0]) + ' Message ' + msg[1]
-    sys.exit()
+master = None
 
-s.listen(5)
+def handle_cmd(cmd):
+    global master
+    if cmd == "up":
+        pass
+    elif cmd == "down":
+        master = None
+        print("giving up control")
+    elif cmd == "left":
+        pass
+    elif cmd == "right":
+        pass
+    else:
+        pass
+        # ???
 
-def clientthread(conn):
-    while True:
-
-        #Receiving from client
+def client(conn, addr):
+    global master
+    while 1:
         data = conn.recv(1024)
+        cmds = data.split("\n")
 
-        if data = "Up"
-            # Motors Go Forward then stop
-        if data = "Back"
-            # Motors Go Back then Stop
-
-        if not data: break
-
-    #came out of loop
+        for cmd in cmds:
+            if cmd == "master?":
+                if master == addr:
+                    conn.sendall("yes")
+                    print("yes ")
+                else:
+                    conn.sendall("no")
+                    print("no")
+            else:
+                print(cmd)
+                handle_cmd(cmd)
     conn.close()
 
-while 1
-    conn, addr = s.accept()
 
-    #start new thread takes 1st argument as a function name to be run, second is the tuple of arguments to the function.
-    start_new_thread(clientthread ,(conn,))
+server = os.getenv("CORO_SERVER")
+port = int(os.getenv("CORO_PORT"))
 
-s.close()
+sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+sock.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
+sock.bind((server, port))
+sock.listen(5)
+
+while 1:
+    (conn, addr) = sock.accept()
+    if master == None:
+        master = addr[0]
+    start_new_thread(client, (conn, addr[0]))
+
+sock.close()
+

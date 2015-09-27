@@ -7,11 +7,12 @@ class CoRoboCo
 	end
 
 	def master?
-		@socket.puts("#{ip} master?")
-		(@socket.gets == "yes").to_s
+		@socket.puts("master?")
+		resp = @socket.recvfrom(1024)[0]
+		(resp == "yes").to_s
 	end
 
 	def do_action(action)
-		@socket.puts("#{ip} #{action}")
+		@socket.puts("#{action}")
 	end
 end

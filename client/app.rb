@@ -2,6 +2,7 @@ require 'sinatra'
 require_relative 'coroboco'
 
 set :public_folder, 'coroboco-web'
+set :port, 8081
 
 get '/' do
 	redirect '/index.html'
