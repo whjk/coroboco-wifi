@@ -8,9 +8,9 @@ get '/' do
 end
 
 get '/key/:key' do
-	do_action(params['key'])
+	master? && do_action(params['key'])
 end
 
 get '/master' do
-	masterless?
+	master?
 end
