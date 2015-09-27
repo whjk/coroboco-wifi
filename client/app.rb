@@ -1,5 +1,7 @@
 require 'sinatra'
 
+set :public_folder, 'coroboco-web'
+
 get '/' do
-	File.read('coroboco-web/index.html')
+	redirect '/index.html'
 end
