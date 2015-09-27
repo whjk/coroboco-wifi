@@ -1,4 +1,3 @@
-require_relative 'robot_actions'
 require 'sinatra'
 
 set :public_folder, 'coroboco-web'
@@ -8,9 +7,10 @@ get '/' do
 end
 
 get '/key/:key' do
-	master? && do_action(params['key'])
+	coroboco = CoRoboCo.new(request.ip)
+
+	coroboco.do_action(params['key'])
+
+	return coroboco.master?
 end
 
-get '/master' do
-	master?
-end
