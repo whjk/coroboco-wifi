@@ -4,13 +4,6 @@ import sys
 import socket
 import os
 from thread import *
-import RPi.GPIO as GPIO
-from time import sleep
-
-GPIO.setmode(GPIO.BOARD)
-
-# motor = 25
-# GPIO.setup(motor, GPIO.OUT)
 
 master = None
 
@@ -18,9 +11,6 @@ def handle_cmd(cmd):
     global master
     if cmd == "up":
         pass
-        # GPIO.output(motor, GPIO.HIGH)
-        # sleep(1)
-        # GPIO.output(motor, GPIO.LOW)
     elif cmd == "down":
         master = None
         print("giving up control")
